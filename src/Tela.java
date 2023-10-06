@@ -9,6 +9,8 @@ public class Tela extends JFrame implements KeyListener{
     private final int screenWidth;
     private final int screenHeight;
     private final Button button;
+    private final CloseBtn close;
+
 
     Tela(String title){
         super(title);
@@ -16,9 +18,10 @@ public class Tela extends JFrame implements KeyListener{
         this.setLayout(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.addKeyListener(this);
-        this.setVisible(true);
         this.setResizable(false);
         this.getContentPane().setBackground( Color.WHITE );
+        this.setUndecorated(true);
+        this.setVisible(true);
 
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         this.screenWidth = (int)size.getWidth();
@@ -29,11 +32,14 @@ public class Tela extends JFrame implements KeyListener{
         int newPosY = rnd.nextInt(screenHeight-100);
         this.button = new Button(newPosX, newPosY );
 
+        this.close = new CloseBtn();
+
         // Finish the game
         this.button.addActionListener(e -> {
-           this.finishGame();
+            this.finishGame();
         });
 
+        this.add(close);
         this.add(this.button);
     }
 
@@ -86,6 +92,7 @@ public class Tela extends JFrame implements KeyListener{
         this.button.addActionListener(f ->{
             System.exit(0);
         });
+        this.close.setVisible(false);
     }
 
     @Override
